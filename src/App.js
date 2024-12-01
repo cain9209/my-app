@@ -6,8 +6,8 @@ import Footer from './components/Footer';  // Import the Footer component
 function App() {
   return (
     <div className="App">
-      <Navbar /> {/* Include the Navbar component */}
       <header className="App-header">
+        <Navbar />
         <h1>Welcome to My Website</h1>
         {/* Additional content here */}
       </header>
