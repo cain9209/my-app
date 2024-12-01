@@ -5,26 +5,13 @@ function Footer() {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-section">
-          <h3>About Us</h3>
-          <p>We are a company committed to providing excellent services.</p>
-        </div>
-        <div className="footer-section">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/services">Services</a></li>
-            <li><a href="/contact">Contact</a></li>
-          </ul>
-        </div>
-        <div className="footer-section">
-          <h3>Contact</h3>
-          <p>Email: info@company.com</p>
-          <p>Phone: +123 456 7890</p>
+          <h3>Contact Me</h3>
+          <p>Email: Zacharylcain@gmail.com </p>
+          <p>Phone: +1 (816) 400 - 3625</p>
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} Company Name. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Cain Technologies LLC. All rights reserved.</p>
       </div>
     </footer>
   );
