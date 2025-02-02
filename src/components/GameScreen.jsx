@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "../styles/GameStyles.css";
 
-function GameScreen({ players = [], host, setPlayers }) {
+function GameScreen({ lobbyId, lobbyData, leaveGame }) {
   const [buzzer, setBuzzer] = useState(null);
 
-  // 🔥 Auto-reset buzzer after 5 seconds
   useEffect(() => {
     if (buzzer) {
       const timer = setTimeout(() => {
         setBuzzer(null);
       }, 5000);
-
-      return () => clearTimeout(timer); // Cleanup timer on unmount
+      return () => clearTimeout(timer);
     }
   }, [buzzer]);
 
@@ -21,14 +19,10 @@ function GameScreen({ players = [], host, setPlayers }) {
     }
   };
 
-  const resetBuzzer = () => {
-    setBuzzer(null);
-  };
-
   return (
     <div className="container">
       <h1>Game On!</h1>
-      <h2>Host: {host}</h2>
+      <h2>Host: {lobbyData?.host}</h2>
 
       {buzzer ? (
         <div>
@@ -39,23 +33,38 @@ function GameScreen({ players = [], host, setPlayers }) {
       )}
 
       <ul>
-        {players.length > 0 ? (
-          players.map((player, index) => (
+        {lobbyData?.players && lobbyData.players.length > 0 ? (
+          lobbyData.players.map((player, index) => (
             <li key={index}>
               <button onClick={() => buzz(player)}>{player} Buzz</button>
             </li>
           ))
         ) : (
-          <p>No players joined yet.</p> // ✅ Prevents crash if players array is empty
+          <p>No players joined yet.</p>
         )}
       </ul>
 
-      {/* ✅ Host can reset buzzer */}
       {buzzer && (
-        <button style={{ marginTop: "10px", padding: "10px 15px" }} onClick={resetBuzzer}>
+        <button style={{ marginTop: "10px", padding: "10px 15px" }} onClick={() => setBuzzer(null)}>
           🔄 Clear Buzzer
         </button>
       )}
+
+      {/* 🔥 Leave Game Button */}
+      <button
+        style={{
+          marginTop: "20px",
+          padding: "10px 15px",
+          backgroundColor: "red",
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+        onClick={leaveGame}
+      >
+        🚪 Leave Game
+      </button>
     </div>
   );
 }
