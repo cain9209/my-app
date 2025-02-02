@@ -1,0 +1,194 @@
+[debug] [2025-02-02T14:32:29.514Z] ----------------------------------------------------------------------
+[debug] [2025-02-02T14:32:29.516Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\zacha\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-02-02T14:32:29.516Z] CLI Version:   13.29.3
+[debug] [2025-02-02T14:32:29.516Z] Platform:      win32
+[debug] [2025-02-02T14:32:29.517Z] Node Version:  v20.12.2
+[debug] [2025-02-02T14:32:29.517Z] Time:          Sun Feb 02 2025 08:32:29 GMT-0600 (Central Standard Time)
+[debug] [2025-02-02T14:32:29.517Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-02-02T14:32:29.521Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-02-02T14:32:29.522Z] > authorizing via signed-in user (zacharylcain@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\zacha\OneDrive\Desktop\ZacksPortfolio\my-app
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2025-02-02T14:33:09.014Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:09.014Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:09.015Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2025-02-02T14:33:09.282Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2025-02-02T14:33:09.282Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project intellgencecheckbuzzer (IntellgenceCheckBuzzer) 
+[info] 
+=== Dataconnect Setup
+[debug] [2025-02-02T14:33:11.208Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:11.208Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:11.208Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/intellgencecheckbuzzer/billingInfo [none]
+[debug] [2025-02-02T14:33:11.427Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/intellgencecheckbuzzer/billingInfo 200
+[debug] [2025-02-02T14:33:11.427Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/intellgencecheckbuzzer/billingInfo {"name":"projects/intellgencecheckbuzzer/billingInfo","projectId":"intellgencecheckbuzzer","billingAccountName":"","billingEnabled":false}
+[info] i  dataconnect: ensuring required API sqladmin.googleapis.com is enabled... 
+[debug] [2025-02-02T14:33:11.427Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:11.427Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:11.427Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/sqladmin.googleapis.com [none]
+[debug] [2025-02-02T14:33:11.428Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/sqladmin.googleapis.com x-goog-quota-user=projects/intellgencecheckbuzzer
+[debug] [2025-02-02T14:33:11.703Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/sqladmin.googleapis.com 200
+[debug] [2025-02-02T14:33:11.704Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/sqladmin.googleapis.com [omitted]
+[warn] !  dataconnect: missing required API sqladmin.googleapis.com. Enabling now... 
+[debug] [2025-02-02T14:33:11.704Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:11.704Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:11.704Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/sqladmin.googleapis.com:enable [none]
+[debug] [2025-02-02T14:33:11.705Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/sqladmin.googleapis.com:enable x-goog-quota-user=projects/intellgencecheckbuzzer
+[debug] [2025-02-02T14:33:11.900Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/sqladmin.googleapis.com:enable 200
+[debug] [2025-02-02T14:33:11.900Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/sqladmin.googleapis.com:enable [omitted]
+[debug] [2025-02-02T14:33:21.910Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:21.910Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:21.910Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/sqladmin.googleapis.com [none]
+[debug] [2025-02-02T14:33:21.910Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/sqladmin.googleapis.com x-goog-quota-user=projects/intellgencecheckbuzzer
+[debug] [2025-02-02T14:33:22.200Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/sqladmin.googleapis.com 200
+[debug] [2025-02-02T14:33:22.200Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/sqladmin.googleapis.com [omitted]
+[info] +  dataconnect: required API sqladmin.googleapis.com is enabled 
+[info] +  Wrote dataconnect\dataconnect.yaml 
+[info] +  Wrote dataconnect\schema\schema.gql 
+[info] +  Wrote dataconnect\connector\connector.yaml 
+[info] +  Wrote dataconnect\connector\queries.gql 
+[info] +  Wrote dataconnect\connector\mutations.gql 
+[info] +  Detected WEB app in directory C:\Users\zacha\OneDrive\Desktop\ZacksPortfolio\my-app 
+[info] i  Wrote new config to C:\Users\zacha\OneDrive\Desktop\ZacksPortfolio\my-app\dataconnect\connector/connector.yaml 
+[info] i  dataconnect: downloading dataconnect-emulator-1.7.7.exe... {"metadata":{"emulator":{"name":"dataconnect"},"message":"downloading dataconnect-emulator-1.7.7.exe..."}}
+[debug] [2025-02-02T14:33:32.041Z] >>> [apiv2][query] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-v1.7.7 
+[debug] [2025-02-02T14:33:32.326Z] <<< [apiv2][status] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-v1.7.7 200
+[debug] [2025-02-02T14:33:32.326Z] <<< [apiv2][body] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-v1.7.7 [stream]
+[info] I0202 08:33:36.812946   17220 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "C:\\Users\\zacha\\OneDrive\\Desktop\\ZacksPortfolio\\my-app\\dataconnect-generated\\js\\default-connector"
+I0202 08:33:36.813950   17220 generate.go:40] Generated all sources. Writing them to disk...
+I0202 08:33:36.818254   17220 collector.go:107] connector "default" javascriptSdk wrote into "C:\\Users\\zacha\\OneDrive\\Desktop\\ZacksPortfolio\\my-app\\dataconnect-generated\\js\\default-connector"
+Generated sources: esm\package.json [17B] index.cjs.js [206B] package.json [634B] README.md [2740B] index.d.ts [261B] esm\index.esm.js [165B] 
+I0202 08:33:36.845271   17220 installsdk.go:76] Running command: C:\Program Files\nodejs\npm.cmd install file:dataconnect-generated\js\default-connector
+
+[info] i  Generated SDK code for default 
+[info] +  If you'd like to add more generated SDKs to your app your later, run firebase init dataconnect:sdk again 
+[info] i  If you'd like to provision a CloudSQL Postgres instance on the Firebase Data Connect no-cost trial:
+1. Please upgrade to the pay-as-you-go (Blaze) billing plan. Visit the following page:
+     https://console.firebase.google.com/project/intellgencecheckbuzzer/usage/details
+2. Run firebase init dataconnect again to configure the Cloud SQL instance.
+3. Run firebase deploy --only dataconnect to deploy your Data Connect service. 
+[info] 
+=== Firestore Setup
+[debug] [2025-02-02T14:33:39.429Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:39.429Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:39.430Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/firestore.googleapis.com [none]
+[debug] [2025-02-02T14:33:39.430Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/firestore.googleapis.com x-goog-quota-user=projects/intellgencecheckbuzzer
+[debug] [2025-02-02T14:33:39.766Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/firestore.googleapis.com 200
+[debug] [2025-02-02T14:33:39.766Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/firestore.googleapis.com [omitted]
+[debug] [2025-02-02T14:33:39.767Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:39.767Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:39.767Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/intellgencecheckbuzzer/databases/(default) [none]
+[debug] [2025-02-02T14:33:39.994Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/intellgencecheckbuzzer/databases/(default) 200
+[debug] [2025-02-02T14:33:39.994Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/intellgencecheckbuzzer/databases/(default) {"name":"projects/intellgencecheckbuzzer/databases/(default)","uid":"defe53bd-6e91-4dfe-80d5-0739cd7371e3","createTime":"2025-02-02T14:21:32.183833Z","updateTime":"2025-02-02T14:21:32.183833Z","locationId":"nam5","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2025-02-02T14:21:32.183833Z","appEngineIntegrationMode":"DISABLED","keyPrefix":"s","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","databaseEdition":"STANDARD","etag":"IJWK6KaapYsDMKTv9fmYpYsD"}
+[debug] [2025-02-02T14:33:39.994Z] database_type: FIRESTORE_NATIVE
+[debug] [2025-02-02T14:33:39.994Z] database_type: FIRESTORE_NATIVE
+[debug] [2025-02-02T14:33:39.994Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-02-02T14:33:39.994Z] > authorizing via signed-in user (zacharylcain@gmail.com)
+[debug] [2025-02-02T14:33:39.995Z] [iam] checking project intellgencecheckbuzzer for permissions ["firebase.projects.get"]
+[debug] [2025-02-02T14:33:39.995Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:39.995Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:39.995Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/intellgencecheckbuzzer:testIamPermissions [none]
+[debug] [2025-02-02T14:33:39.995Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/intellgencecheckbuzzer:testIamPermissions x-goog-quota-user=projects/intellgencecheckbuzzer
+[debug] [2025-02-02T14:33:39.995Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/intellgencecheckbuzzer:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-02-02T14:33:40.124Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/intellgencecheckbuzzer:testIamPermissions 200
+[debug] [2025-02-02T14:33:40.124Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/intellgencecheckbuzzer:testIamPermissions {"permissions":["firebase.projects.get"]}
+[info] 
+[info] Firestore Security Rules allow you to define how and when to allow
+[info] requests. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2025-02-02T14:33:42.741Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:42.742Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:42.742Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/intellgencecheckbuzzer/releases pageSize=10&pageToken=
+[debug] [2025-02-02T14:33:42.879Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/intellgencecheckbuzzer/releases 200
+[debug] [2025-02-02T14:33:42.879Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/intellgencecheckbuzzer/releases {"releases":[{"name":"projects/intellgencecheckbuzzer/releases/cloud.firestore","rulesetName":"projects/intellgencecheckbuzzer/rulesets/4842c5e5-7639-4981-8cd9-e9f5ce19c78d","createTime":"2025-02-02T14:21:33.258053Z","updateTime":"2025-02-02T14:21:33.258053Z"}]}
+[debug] [2025-02-02T14:33:42.879Z] Found ruleset: projects/intellgencecheckbuzzer/rulesets/4842c5e5-7639-4981-8cd9-e9f5ce19c78d
+[debug] [2025-02-02T14:33:42.879Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:42.879Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:42.879Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/intellgencecheckbuzzer/rulesets/4842c5e5-7639-4981-8cd9-e9f5ce19c78d [none]
+[debug] [2025-02-02T14:33:42.944Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/intellgencecheckbuzzer/rulesets/4842c5e5-7639-4981-8cd9-e9f5ce19c78d 200
+[debug] [2025-02-02T14:33:42.944Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/intellgencecheckbuzzer/rulesets/4842c5e5-7639-4981-8cd9-e9f5ce19c78d [omitted]
+[info] 
+[info] Firestore indexes allow you to perform complex queries while
+[info] maintaining performance that scales with the size of the result
+[info] set. You can keep index definitions in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2025-02-02T14:33:44.644Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:44.645Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:44.645Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:44.645Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:44.645Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/intellgencecheckbuzzer/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2025-02-02T14:33:44.645Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/intellgencecheckbuzzer/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2025-02-02T14:33:44.732Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/intellgencecheckbuzzer/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2025-02-02T14:33:44.732Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/intellgencecheckbuzzer/databases/(default)/collectionGroups/-/indexes {}
+[debug] [2025-02-02T14:33:44.828Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/intellgencecheckbuzzer/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2025-02-02T14:33:44.828Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/intellgencecheckbuzzer/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/intellgencecheckbuzzer/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[info] 
+=== Genkit Setup
+[debug] [2025-02-02T14:33:49.260Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-02-02T14:33:49.260Z] > authorizing via signed-in user (zacharylcain@gmail.com)
+[debug] [2025-02-02T14:33:49.260Z] [iam] checking project intellgencecheckbuzzer for permissions ["firebase.projects.get"]
+[debug] [2025-02-02T14:33:49.260Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:49.260Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:49.260Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/intellgencecheckbuzzer:testIamPermissions [none]
+[debug] [2025-02-02T14:33:49.260Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/intellgencecheckbuzzer:testIamPermissions x-goog-quota-user=projects/intellgencecheckbuzzer
+[debug] [2025-02-02T14:33:49.260Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/intellgencecheckbuzzer:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-02-02T14:33:49.362Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/intellgencecheckbuzzer:testIamPermissions 200
+[debug] [2025-02-02T14:33:49.363Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/intellgencecheckbuzzer:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-02-02T14:33:49.363Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:49.363Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:49.363Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:49.363Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:49.363Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-02-02T14:33:49.363Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/intellgencecheckbuzzer
+[debug] [2025-02-02T14:33:49.364Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/runtimeconfig.googleapis.com [none]
+[debug] [2025-02-02T14:33:49.364Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/intellgencecheckbuzzer
+[debug] [2025-02-02T14:33:49.645Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/runtimeconfig.googleapis.com 200
+[debug] [2025-02-02T14:33:49.645Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2025-02-02T14:33:49.649Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/cloudfunctions.googleapis.com 200
+[debug] [2025-02-02T14:33:49.649Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-02-02T14:33:49.649Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:49.649Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:49.649Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/cloudfunctions.googleapis.com:enable [none]
+[debug] [2025-02-02T14:33:49.649Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/cloudfunctions.googleapis.com:enable x-goog-quota-user=projects/intellgencecheckbuzzer
+[debug] [2025-02-02T14:33:49.947Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/cloudfunctions.googleapis.com:enable 200
+[debug] [2025-02-02T14:33:49.947Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/cloudfunctions.googleapis.com:enable [omitted]
+[debug] [2025-02-02T14:33:59.959Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:59.959Z] Checked if tokens are valid: true, expires at: 1738510337652
+[debug] [2025-02-02T14:33:59.959Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-02-02T14:33:59.959Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/intellgencecheckbuzzer
+[debug] [2025-02-02T14:34:00.257Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/cloudfunctions.googleapis.com 200
+[debug] [2025-02-02T14:34:00.257Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/intellgencecheckbuzzer/services/cloudfunctions.googleapis.com [omitted]
+[info] Let's create a new codebase for your functions.
+[info] A directory corresponding to the codebase will be created in your project
+[info] with sample code pre-configured.
+
+[info] See https://firebase.google.com/docs/functions/organize-functions for
+[info] more information on organizing your functions using codebases.
+
+[info] Functions can be deployed with firebase deploy.
+
+[info] +  Wrote functions/package.json 
+[info] +  Wrote functions/.eslintrc.js 
+[info] +  Wrote functions/tsconfig.json 
+[info] +  Wrote functions/tsconfig.dev.json 
+[info] +  Wrote functions/src/index.ts 
+[info] +  Wrote functions/.gitignore 
