@@ -1,0 +1,16 @@
+I0202 09:09:56.830726    5932 load.go:37] Reloading schema and connectors...
+I0202 09:09:56.842752    5932 control.go:59] [/emulator/my-app 47ef] UpdateResources(): done
+Schema: sources: schema\schema.gql [1384B] 
+Connector "default": sources: connector\queries.gql [1855B] connector\mutations.gql [1163B] 
+I0202 09:09:56.849218    5932 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "C:\\Users\\zacha\\OneDrive\\Desktop\\ZacksPortfolio\\my-app\\dataconnect-generated\\js\\default-connector"
+I0202 09:09:56.852269    5932 collector.go:107] schema extensions wrote into "C:\\Users\\zacha\\OneDrive\\Desktop\\ZacksPortfolio\\my-app\\dataconnect\\.dataconnect\\schema"
+Generated sources: prelude.gql [65151B] 
+I0202 09:09:56.854418    5932 collector.go:107] connector "default" javascriptSdk wrote into "C:\\Users\\zacha\\OneDrive\\Desktop\\ZacksPortfolio\\my-app\\dataconnect-generated\\js\\default-connector"
+Generated sources: README.md [2740B] index.d.ts [261B] esm\index.esm.js [165B] esm\package.json [17B] index.cjs.js [206B] package.json [634B] 
+I0202 09:09:56.874091    5932 installsdk.go:76] Running command: C:\Program Files\nodejs\npm.cmd install file:dataconnect-generated\js\default-connector
+I0202 09:10:00.398791    5932 load.go:115] Finished reloading
+I0202 09:10:00.399296    5932 dev.go:95] Listening on address (HTTP + gRPC): 127.0.0.1:9399
+I0202 09:10:00.399296    5932 dev.go:95] Listening on address (HTTP + gRPC): [::1]:9399
+I0202 09:10:03.001483    5932 control.go:59] [/emulator/my-app e2a9] UpdateResources(): done
+Schema: sources: schema\schema.gql [1384B] 
+Connector "default": sources: connector\mutations.gql [1163B] connector\queries.gql [1855B] 

@@ -1,17 +1,24 @@
+// Import Firebase SDKs
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore"; // ✅ Import Firestore
+import { getAnalytics } from "firebase/analytics";
 
+// Firebase configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyA1GVAGSeP73TPs3fgFrkLtxZjESCPta3E",
+  authDomain: "intellgencecheckbuzzer.firebaseapp.com",
+  databaseURL: "https://intellgencecheckbuzzer-default-rtdb.firebaseio.com",
+  projectId: "intellgencecheckbuzzer",
+  storageBucket: "intellgencecheckbuzzer.appspot.com", // ✅ Fixed storageBucket
+  messagingSenderId: "467274215067",
+  appId: "1:467274215067:web:c12a6e515e69e9b702e03e",
+  measurementId: "G-CTDW2EJBQ6"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const db = getFirestore(app); // ✅ Initialize Firestore
+const analytics = getAnalytics(app);
 
-export { db };
+// Export Firestore so other files can use it
+export { db, analytics };
