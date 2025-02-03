@@ -11,6 +11,7 @@ function Lobby({ lobbyId, lobbyData }) {
 
       <h3>Players Joining:</h3>
 <<<<<<< HEAD
+<<<<<<< HEAD
       {lobbyData?.players && lobbyData.players.length > 0 ? (
         <ul>
           {lobbyData.players.map((player, index) => (
@@ -21,11 +22,16 @@ function Lobby({ lobbyId, lobbyData }) {
         <p>No players have joined yet.</p>
       )}
 =======
+=======
+>>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
       <ul>
         {lobbyData?.players.map((player, index) => (
           <li key={index}>{player}</li>
         ))}
       </ul>
+<<<<<<< HEAD
+>>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
+=======
 >>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
     </div>
   );

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* General body styling */
 body {
   background-color: #5b0b0b; /* Dark red background */
@@ -88,6 +89,8 @@ button:hover {
   .card button {
     max-width: 90%;
 =======
+=======
+>>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
 .App {
   text-align: center;
 }
@@ -124,6 +127,9 @@ button:hover {
   }
   to {
     transform: rotate(360deg);
+<<<<<<< HEAD
+>>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
+=======
 >>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
   }
 }

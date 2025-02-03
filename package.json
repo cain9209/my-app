@@ -11,7 +11,10 @@
     "firebase": "^11.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+<<<<<<< HEAD
     "react-router-dom": "^7.1.5",
+=======
+>>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },

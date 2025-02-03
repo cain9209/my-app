@@ -1,5 +1,6 @@
 import React from "react";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import "../styles/Host.css";
@@ -56,6 +57,8 @@ function HostView({ lobbyId, lobbyData, startGame }) {
         </button>
       )}
 =======
+=======
+>>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
 
 function HostView({ lobbyId, lobbyData, startGame }) {
   return (
@@ -75,6 +78,9 @@ function HostView({ lobbyId, lobbyData, startGame }) {
       </ul>
 
       {lobbyData?.players.length > 0 && <button onClick={startGame}>Start Game</button>}
+<<<<<<< HEAD
+>>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
+=======
 >>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
     </div>
   );

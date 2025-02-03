@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebaseConfig";
@@ -32,11 +33,16 @@ function GameScreen({ lobbyId, leaveGame }) {
     }
   }, [buzzer]);
 =======
+=======
+>>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
 import React, { useState } from "react";
 import "../styles/GameStyles.css";
 
 function GameScreen({ players, host, setPlayers }) {
   const [buzzer, setBuzzer] = useState(null);
+<<<<<<< HEAD
+>>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
+=======
 >>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
 
   const buzz = (player) => {
@@ -47,6 +53,7 @@ function GameScreen({ players, host, setPlayers }) {
 
   return (
     <div className="container">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <h1>🎮 Game On!</h1>
       <h2>Host: {lobbyData?.host || "Unknown"}</h2>
@@ -84,6 +91,8 @@ function GameScreen({ players, host, setPlayers }) {
         🚪 Leave Game
       </button>
 =======
+=======
+>>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
       <h1>Game On!</h1>
       <h2>Host: {host}</h2>
 
@@ -102,6 +111,9 @@ function GameScreen({ players, host, setPlayers }) {
           </li>
         ))}
       </ul>
+<<<<<<< HEAD
+>>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
+=======
 >>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
     </div>
   );

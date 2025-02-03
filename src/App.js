@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom"; // ✅ Import useNavigate
 import Navbar from "./components/NavBar";
@@ -202,6 +203,8 @@ function App() {
 
 export default App;
 =======
+=======
+>>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
 useEffect(() => {
   if (!lobbyId) return;
   
@@ -217,4 +220,7 @@ useEffect(() => {
 
   return () => unsubscribe();
 }, [lobbyId]);
+<<<<<<< HEAD
+>>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
+=======
 >>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
