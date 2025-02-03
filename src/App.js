@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/NavBar"; // Import the navbar
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import Navbar from "./components/NavBar";
 import Lobby from "./components/Lobby";
 import GameScreen from "./components/GameScreen";
 import HostView from "./components/HostView";
 import { db } from "./firebaseConfig";
-import { collection, doc, setDoc, getDoc, onSnapshot } from "firebase/firestore";
+import { doc, setDoc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
-import "./App.css"; // Ensure this CSS file exists for styling
+import "./App.css";
+
+function AppWrapper() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}
 
 function App() {
+  const navigate = useNavigate(); // ✅ Now inside <Router>, so no error
+
   const [lobbyId, setLobbyId] = useState(null);
   const [lobbyData, setLobbyData] = useState(null);
   const [isHost, setIsHost] = useState(false);
@@ -19,7 +29,7 @@ function App() {
   const [lobbyIdInput, setLobbyIdInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // 🔥 Create a new lobby
+  // 🔥 Create a new lobby (Players as an array)
   const hostLobby = async () => {
     if (!hostName.trim()) {
       alert("Enter a name to host a lobby!");
@@ -32,12 +42,15 @@ function App() {
 
     await setDoc(newLobbyRef, {
       host: hostName,
-      players: [],
+      players: [], // ✅ Players stored as an array
       gameStarted: false,
+      buzzer: null,
+      messages: []
     });
 
     setLobbyId(newLobbyId);
     setIsHost(true);
+    navigate("/host"); // ✅ Redirect host to Host View
     setLoading(false);
   };
 
@@ -47,56 +60,58 @@ function App() {
       alert("Enter a valid Lobby ID and name!");
       return;
     }
-  
+
     setLoading(true);
     const lobbyRef = doc(db, "lobbies", lobbyIdInput);
     const lobbySnap = await getDoc(lobbyRef);
-  
+
     if (lobbySnap.exists()) {
       const lobbyData = lobbySnap.data();
-  
-      if (lobbyData.players && lobbyData.players[playerName]) {
+
+      if (Array.isArray(lobbyData.players) && lobbyData.players.includes(playerName)) {
         alert("Name already taken! Choose a different name.");
         setLoading(false);
         return;
       }
-  
-      const updatedPlayers = {
-        ...lobbyData.players,
-        [playerName]: 0, // ✅ Ensure XP starts at 0 for new players
-      };
-  
-      await setDoc(lobbyRef, { players: updatedPlayers }, { merge: true });
-  
+
+      const updatedPlayers = [...(lobbyData.players || []), playerName]; // ✅ Add player to array
+
+      await updateDoc(lobbyRef, { players: updatedPlayers });
+
       setLobbyId(lobbyIdInput);
-      setGameStarted(true);
+      setGameStarted(lobbyData.gameStarted);
+      navigate("/game"); // ✅ Redirect player to Game Screen
     } else {
       alert("Lobby ID not found!");
     }
     setLoading(false);
   };
 
-  // 🔥 Leave the game
+  // 🔥 Leave the game (Remove player from array)
   const leaveGame = async () => {
-    if (!lobbyId) return;
+    if (!lobbyId || !playerName) return;
 
     const lobbyRef = doc(db, "lobbies", lobbyId);
     const lobbySnap = await getDoc(lobbyRef);
 
     if (lobbySnap.exists()) {
       const lobbyData = lobbySnap.data();
-      const updatedPlayers = lobbyData.players.filter((player) => player !== playerName);
 
-      if (updatedPlayers.length === 0) {
-        await setDoc(lobbyRef, { players: [], gameStarted: false }, { merge: true });
-      } else {
-        await setDoc(lobbyRef, { players: updatedPlayers }, { merge: true });
+      if (Array.isArray(lobbyData.players)) {
+        const updatedPlayers = lobbyData.players.filter(player => player !== playerName); // ✅ Remove player
+
+        await updateDoc(lobbyRef, { players: updatedPlayers });
+
+        if (updatedPlayers.length === 0) {
+          await updateDoc(lobbyRef, { gameStarted: false }); // ✅ Reset game if empty
+        }
       }
     }
 
     setLobbyId(null);
     setGameStarted(false);
     setIsHost(false);
+    navigate("/"); // ✅ Redirect player back to home
   };
 
   // 🔥 Listen for real-time updates
@@ -126,59 +141,57 @@ function App() {
     if (!lobbyId) return;
 
     const lobbyRef = doc(db, "lobbies", lobbyId);
-    await setDoc(lobbyRef, { gameStarted: true }, { merge: true });
+    await updateDoc(lobbyRef, { gameStarted: true });
   };
 
   return (
-    <Router>
+    <div className="app-container">
       <Navbar />
-      <div className="app-container">
-        {loading && <div className="loading">Loading...</div>}
+      {loading && <div className="loading">Loading...</div>}
 
-        {lobbyId ? (
-          gameStarted ? (
-            <GameScreen lobbyId={lobbyId} lobbyData={lobbyData} leaveGame={leaveGame} />
-          ) : isHost ? (
-            <HostView lobbyId={lobbyId} lobbyData={lobbyData} startGame={startGame} />
-          ) : (
-            <GameScreen lobbyId={lobbyId} lobbyData={lobbyData} leaveGame={leaveGame} />
-          )
+      {lobbyId ? (
+        gameStarted ? (
+          <GameScreen lobbyId={lobbyId} lobbyData={lobbyData} leaveGame={leaveGame} />
+        ) : isHost ? (
+          <HostView lobbyId={lobbyId} lobbyData={lobbyData} startGame={startGame} />
         ) : (
-          <div className="lobby-selection">
-            <h1>Welcome to the Game!</h1>
+          <GameScreen lobbyId={lobbyId} lobbyData={lobbyData} leaveGame={leaveGame} />
+        )
+      ) : (
+        <div className="lobby-selection">
+          <h1>Welcome to the Game!</h1>
 
-            <div className="form-container">
-              <h2>Host a Lobby</h2>
-              <input
-                type="text"
-                value={hostName}
-                onChange={(e) => setHostName(e.target.value)}
-                placeholder="Enter your name to Host"
-              />
-              <button onClick={hostLobby} disabled={loading}>Host a Lobby</button>
-            </div>
-
-            <div className="form-container">
-              <h2>Join a Lobby</h2>
-              <input
-                type="text"
-                value={lobbyIdInput}
-                onChange={(e) => setLobbyIdInput(e.target.value)}
-                placeholder="Enter Lobby ID"
-              />
-              <input
-                type="text"
-                value={playerName}
-                onChange={(e) => setPlayerName(e.target.value)}
-                placeholder="Enter Your Name"
-              />
-              <button onClick={joinLobby} disabled={loading}>Join Lobby</button>
-            </div>
+          <div className="form-container">
+            <h2>Host a Lobby</h2>
+            <input
+              type="text"
+              value={hostName}
+              onChange={(e) => setHostName(e.target.value)}
+              placeholder="Enter your name to Host"
+            />
+            <button onClick={hostLobby} disabled={loading}>Host a Lobby</button>
           </div>
-        )}
-      </div>
-    </Router>
+
+          <div className="form-container">
+            <h2>Join a Lobby</h2>
+            <input
+              type="text"
+              value={lobbyIdInput}
+              onChange={(e) => setLobbyIdInput(e.target.value)}
+              placeholder="Enter Lobby ID"
+            />
+            <input
+              type="text"
+              value={playerName}
+              onChange={(e) => setPlayerName(e.target.value)}
+              placeholder="Enter Your Name"
+            />
+            <button onClick={joinLobby} disabled={loading}>Join Lobby</button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
-export default App;
+export default AppWrapper;
