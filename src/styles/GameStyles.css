@@ -1,71 +1,211 @@
-/* Center the app */
-.App {
+<<<<<<< HEAD
+.container {
   text-align: center;
-  font-family: 'Inter', sans-serif;
-  background-color: #f4f4f4; /* Light gray background */
-  min-height: 100vh;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* 🎮 Raised Remote Container */
+.remote-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* 📟 Remote Box */
+.remote {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-}
-
-/* Form Box Styling */
-.form-container {
-  background: white;
+  background-color: #222;
+  width: 220px;
   padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  width: 90%;
-  max-width: 400px;
-  margin: 20px auto;
+  border-radius: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 3px 6px rgba(0, 0, 0, 0.2);
+  border: 2px solid #444;
+  position: relative;
 }
 
-/* Input Fields */
-.form-container input {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 8px;
+/* 🎛️ Remote Buttons */
+.remote-button {
+  width: 60px;
+  height: 60px;
+  margin: 10px;
   font-size: 16px;
-  border: 1px solid #ddd;
-  background: #f9f9f9;
-  color: black;
-  text-align: center;
+  font-weight: bold;
+  color: white;
+  background-color: #333;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.1s, background-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Button Styling */
-.form-container button {
-  background: #007bff;
+/* 🟠 Button Hover Effect */
+.remote-button:hover {
+  background-color: #444;
+}
+
+/* 🔴 Button Press Effect */
+.remote-button:active {
+  transform: scale(0.9);
+  background-color: #ff4500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* 🚀 Buzzed-in Message */
+.buzzed-message {
+  color: #ff4500;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* 🔄 Clear Buzzer Button */
+.clear-buzzer {
+  margin-top: 15px;
+  padding: 10px 15px;
+  background-color: #555;
   color: white;
   border: none;
-  padding: 12px;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  width: 100%;
-  transition: background 0.3s ease, transform 0.1s ease;
 }
 
-.form-container button:hover {
-  background: #0056b3;
-  transform: scale(1.05);
+.clear-buzzer:hover {
+  background-color: #777;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 600px) {
-  .form-container {
-      padding: 20px;
+/* 🚪 Leave Game Button */
+.leave-game {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.leave-game:hover {
+  background-color: darkred;
+}
+=======
+/* Center the app */
+.App {
+    text-align: center;
   }
-
+  
+  /* Logo Animation */
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  /* Keeps logo spinning */
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  /* App Header Styling */
+  .App-header {
+    background-color: black;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  /* Links */
+  .App-link {
+    color: #5c6da0;
+  }
+  
+  /* Container for game elements */
+  .container {
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  /* Buttons */
   button {
-      font-size: 14px;
-      padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background 0.3s ease;
   }
-
+  
+  button:hover {
+    background: #0056b3;
+  }
+  
+  button:active {
+    background: #003d82;
+  }
+  
+  /* Input Fields */
   input {
-      font-size: 14px;
-      padding: 10px;
+    width: 90%;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
   }
-}
+  
+  /* Chat Box */
+  .chat-container {
+    border: 1px solid #ddd;
+    padding: 10px;
+    height: 150px;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 5px;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 600px) {
+    .container {
+      width: 95%;
+      padding: 15px;
+    }
+  
+    button {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    input {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
+  
+  /* Logo Animation */
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+>>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom"; // ✅ Import useNavigate
 import Navbar from "./components/NavBar";
@@ -200,3 +201,20 @@ function App() {
 }
 
 export default App;
+=======
+useEffect(() => {
+  if (!lobbyId) return;
+  
+  const lobbyRef = doc(db, "lobbies", lobbyId);
+  const unsubscribe = onSnapshot(lobbyRef, (snapshot) => {
+    if (snapshot.exists()) {
+      setLobbyData(snapshot.data());
+      console.log("Lobby Data Updated:", snapshot.data()); // ✅ Logs updates
+    } else {
+      console.log("Lobby does not exist!");
+    }
+  });
+
+  return () => unsubscribe();
+}, [lobbyId]);
+>>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
