@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/NavBar"; // Import the navbar
 import Lobby from "./components/Lobby";
 import GameScreen from "./components/GameScreen";
 import HostView from "./components/HostView";
@@ -125,51 +127,54 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      {loading && <div className="loading">Loading...</div>}
+    <Router>
+      <Navbar />
+      <div className="app-container">
+        {loading && <div className="loading">Loading...</div>}
 
-      {lobbyId ? (
-        gameStarted ? (
-          <GameScreen lobbyId={lobbyId} lobbyData={lobbyData} leaveGame={leaveGame} />
-        ) : isHost ? (
-          <HostView lobbyId={lobbyId} lobbyData={lobbyData} startGame={startGame} />
+        {lobbyId ? (
+          gameStarted ? (
+            <GameScreen lobbyId={lobbyId} lobbyData={lobbyData} leaveGame={leaveGame} />
+          ) : isHost ? (
+            <HostView lobbyId={lobbyId} lobbyData={lobbyData} startGame={startGame} />
+          ) : (
+            <GameScreen lobbyId={lobbyId} lobbyData={lobbyData} leaveGame={leaveGame} />
+          )
         ) : (
-          <GameScreen lobbyId={lobbyId} lobbyData={lobbyData} leaveGame={leaveGame} />
-        )
-      ) : (
-        <div className="lobby-selection">
-          <h1>Welcome to the Game!</h1>
+          <div className="lobby-selection">
+            <h1>Welcome to the Game!</h1>
 
-          <div className="form-container">
-            <h2>Host a Lobby</h2>
-            <input
-              type="text"
-              value={hostName}
-              onChange={(e) => setHostName(e.target.value)}
-              placeholder="Enter your name to Host"
-            />
-            <button onClick={hostLobby} disabled={loading}>Host a Lobby</button>
-          </div>
+            <div className="form-container">
+              <h2>Host a Lobby</h2>
+              <input
+                type="text"
+                value={hostName}
+                onChange={(e) => setHostName(e.target.value)}
+                placeholder="Enter your name to Host"
+              />
+              <button onClick={hostLobby} disabled={loading}>Host a Lobby</button>
+            </div>
 
-          <div className="form-container">
-            <h2>Join a Lobby</h2>
-            <input
-              type="text"
-              value={lobbyIdInput}
-              onChange={(e) => setLobbyIdInput(e.target.value)}
-              placeholder="Enter Lobby ID"
-            />
-            <input
-              type="text"
-              value={playerName}
-              onChange={(e) => setPlayerName(e.target.value)}
-              placeholder="Enter Your Name"
-            />
-            <button onClick={joinLobby} disabled={loading}>Join Lobby</button>
+            <div className="form-container">
+              <h2>Join a Lobby</h2>
+              <input
+                type="text"
+                value={lobbyIdInput}
+                onChange={(e) => setLobbyIdInput(e.target.value)}
+                placeholder="Enter Lobby ID"
+              />
+              <input
+                type="text"
+                value={playerName}
+                onChange={(e) => setPlayerName(e.target.value)}
+                placeholder="Enter Your Name"
+              />
+              <button onClick={joinLobby} disabled={loading}>Join Lobby</button>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </Router>
   );
 }
 
