@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/NavBar"; // Import the navbar
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import Navbar from "./components/NavBar";
 import Lobby from "./components/Lobby";
 import GameScreen from "./components/GameScreen";
 import HostView from "./components/HostView";
 import { db } from "./firebaseConfig";
-import { collection, doc, setDoc, getDoc, onSnapshot } from "firebase/firestore";
+import { doc, setDoc, getDoc, onSnapshot } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
-import "./App.css"; // Ensure this CSS file exists for styling
+import "./App.css";
 
 function App() {
+  return (
+    <Router>
+      <MainLayout />
+    </Router>
+  );
+}
+
+const MainLayout = () => {
   const [lobbyId, setLobbyId] = useState(null);
   const [lobbyData, setLobbyData] = useState(null);
   const [isHost, setIsHost] = useState(false);
@@ -18,6 +26,11 @@ function App() {
   const [playerName, setPlayerName] = useState("");
   const [lobbyIdInput, setLobbyIdInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // ✅ Show Navbar ONLY in the Lobby
+  const showNavbar = location.pathname === "/lobby";
 
   // 🔥 Create a new lobby
   const hostLobby = async () => {
@@ -32,7 +45,7 @@ function App() {
 
     await setDoc(newLobbyRef, {
       host: hostName,
-      players: [],
+      players: {},
       gameStarted: false,
     });
 
@@ -54,19 +67,25 @@ function App() {
 
     if (lobbySnap.exists()) {
       const lobbyData = lobbySnap.data();
-      
-      if (lobbyData.players.includes(playerName)) {
+
+      if (lobbyData.players && lobbyData.players[playerName]) {
         alert("Name already taken! Choose a different name.");
         setLoading(false);
         return;
       }
 
-      const updatedPlayers = [...lobbyData.players, playerName];
+      const updatedPlayers = {
+        ...lobbyData.players,
+        [playerName]: 0, // ✅ Ensure XP starts at 0 for new players
+      };
 
       await setDoc(lobbyRef, { players: updatedPlayers }, { merge: true });
 
       setLobbyId(lobbyIdInput);
       setGameStarted(true);
+
+      // ✅ Redirect player to the Game Screen
+      navigate("/game");
     } else {
       alert("Lobby ID not found!");
     }
@@ -82,10 +101,11 @@ function App() {
 
     if (lobbySnap.exists()) {
       const lobbyData = lobbySnap.data();
-      const updatedPlayers = lobbyData.players.filter((player) => player !== playerName);
+      const updatedPlayers = { ...lobbyData.players };
+      delete updatedPlayers[playerName];
 
-      if (updatedPlayers.length === 0) {
-        await setDoc(lobbyRef, { players: [], gameStarted: false }, { merge: true });
+      if (Object.keys(updatedPlayers).length === 0) {
+        await setDoc(lobbyRef, { players: {}, gameStarted: false }, { merge: true });
       } else {
         await setDoc(lobbyRef, { players: updatedPlayers }, { merge: true });
       }
@@ -94,6 +114,9 @@ function App() {
     setLobbyId(null);
     setGameStarted(false);
     setIsHost(false);
+
+    // ✅ Redirect back to Lobby after leaving
+    navigate("/lobby");
   };
 
   // 🔥 Listen for real-time updates
@@ -103,10 +126,9 @@ function App() {
     const lobbyRef = doc(db, "lobbies", lobbyId);
     const unsubscribe = onSnapshot(lobbyRef, (snapshot) => {
       if (snapshot.exists()) {
-        const data = snapshot.data();
-        setLobbyData(data);
+        setLobbyData(snapshot.data());
 
-        if (data.gameStarted) {
+        if (snapshot.data().gameStarted) {
           setGameStarted(true);
         }
       } else {
@@ -124,21 +146,25 @@ function App() {
 
     const lobbyRef = doc(db, "lobbies", lobbyId);
     await setDoc(lobbyRef, { gameStarted: true }, { merge: true });
+
+    // ✅ Redirect all players to Game Screen
+    navigate("/game");
   };
 
   return (
-    <Router>
-      <Navbar />
+    <>
+      {showNavbar && <Navbar />}
+
       <div className="app-container">
         {loading && <div className="loading">Loading...</div>}
 
         {lobbyId ? (
           gameStarted ? (
-            <GameScreen lobbyId={lobbyId} lobbyData={lobbyData} leaveGame={leaveGame} />
+            <GameScreen lobbyId={lobbyId} leaveGame={leaveGame} />
           ) : isHost ? (
             <HostView lobbyId={lobbyId} lobbyData={lobbyData} startGame={startGame} />
           ) : (
-            <GameScreen lobbyId={lobbyId} lobbyData={lobbyData} leaveGame={leaveGame} />
+            <GameScreen lobbyId={lobbyId} leaveGame={leaveGame} />
           )
         ) : (
           <div className="lobby-selection">
@@ -174,8 +200,8 @@ function App() {
           </div>
         )}
       </div>
-    </Router>
+    </>
   );
-}
+};
 
 export default App;

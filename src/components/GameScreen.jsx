@@ -1,8 +1,27 @@
 import React, { useState, useEffect } from "react";
+import { doc, onSnapshot } from "firebase/firestore"; // ✅ Import Firebase
+import { db } from "../firebaseConfig"; // ✅ Import Firestore config
 import "../styles/GameStyles.css";
 
-function GameScreen({ lobbyId, lobbyData, leaveGame }) {
+function GameScreen({ lobbyId, leaveGame }) {
   const [buzzer, setBuzzer] = useState(null);
+  const [lobbyData, setLobbyData] = useState(null);
+
+  // ✅ Get real-time updates for the lobby
+  useEffect(() => {
+    if (!lobbyId) return;
+
+    const lobbyRef = doc(db, "lobbies", lobbyId);
+    const unsubscribe = onSnapshot(lobbyRef, (snapshot) => {
+      if (snapshot.exists()) {
+        setLobbyData(snapshot.data());
+      } else {
+        setLobbyData(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [lobbyId]);
 
   useEffect(() => {
     if (buzzer) {
@@ -22,7 +41,7 @@ function GameScreen({ lobbyId, lobbyData, leaveGame }) {
   return (
     <div className="container">
       <h1>Game On!</h1>
-      <h2>Host: {lobbyData?.host}</h2>
+      <h2>Host: {lobbyData?.host || "Unknown"}</h2>
 
       {buzzer ? (
         <div>
@@ -33,9 +52,9 @@ function GameScreen({ lobbyId, lobbyData, leaveGame }) {
       )}
 
       <ul>
-        {lobbyData?.players && lobbyData.players.length > 0 ? (
-          lobbyData.players.map((player, index) => (
-            <li key={index}>
+        {lobbyData?.players && Object.keys(lobbyData.players).length > 0 ? (
+          Object.keys(lobbyData.players).map((player) => (
+            <li key={player}>
               <button onClick={() => buzz(player)}>{player} Buzz</button>
             </li>
           ))

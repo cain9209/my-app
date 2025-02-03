@@ -1,0 +1,123 @@
+/* Host container styled like Pip-Boy */
+.host-container {
+    max-width: 800px;
+    margin: 80px auto 20px;
+    padding: 20px;
+    background: #063d1e; /* Dark green Pip-Boy screen */
+    border: 5px solid #046b2a;
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px #0f0;
+    text-align: center;
+    font-family: 'VT323', monospace;
+    color: #0f0;
+  }
+  
+  /* Glowing text effect */
+  .host-container h1, 
+  .host-container h2, 
+  .host-container h3, 
+  .host-container p {
+    text-shadow: 0px 0px 10px #0f0;
+  }
+  
+  /* Pip-Boy buttons */
+  .host-button, .points-button {
+    background: black;
+    border: 2px solid #0f0;
+    color: #0f0;
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0px 0px 10px #0f0;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .host-button:hover, .points-button:hover {
+    background: #0a3d2a;
+    box-shadow: 0px 0px 15px #0f0;
+    transform: scale(1.05);
+  }
+  
+  /* Player list */
+  .host-player-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+  }
+  
+  .player-item {
+    background: black;
+    border: 2px solid #0f0;
+    color: #0f0;
+    font-size: 18px;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    text-shadow: 0px 0px 5px #0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  /* Player Name */
+  .player-name {
+    flex: 1;
+    text-align: left;
+    padding-left: 10px;
+  }
+  
+  /* XP Counter Layout */
+  .points-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .player-points {
+    font-size: 22px;
+    font-weight: bold;
+    text-shadow: 0px 0px 5px #0f0;
+  }
+  
+  /* Points buttons next to XP counter */
+  .points-button {
+    font-size: 20px;
+    padding: 5px 10px;
+    margin: 0;
+  }
+  
+  /* No players message */
+  .no-players {
+    font-size: 18px;
+    color: #0f0;
+    font-style: italic;
+    opacity: 0.8;
+  }
+  
+  /* Pip-Boy screen flicker effect */
+  @keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.95; }
+    100% { opacity: 1; }
+  }
+  
+  .host-container {
+    animation: flicker 1s infinite alternate;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 600px) {
+    .host-container {
+      width: 90%;
+      padding: 15px;
+    }
+  
+    .host-button, .points-button {
+      font-size: 16px;
+      padding: 8px 16px;
+    }
+  }
+  
