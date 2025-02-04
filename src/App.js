@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom"; // ✅ Ensure Router is imported
 import Navbar from "./components/NavBar";
 import GameScreen from "./components/GameScreen";
 import HostView from "./components/HostView";
