@@ -56,7 +56,7 @@ function GameScreen({ lobbyId, leaveGame }) {
           {lobbyData?.players && Object.keys(lobbyData.players).length > 0 ? (
             Object.keys(lobbyData.players).map((player) => (
               <button key={player} className="remote-button" onClick={() => buzz(player)}>
-                {player}
+                {player} Buzz
               </button>
             ))
           ) : (

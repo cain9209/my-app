@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import {useNavigate } from "react-router-dom"; // ✅ Import useNavigate
 import Navbar from "./components/NavBar";
-import Lobby from "./components/Lobby";
 import GameScreen from "./components/GameScreen";
 import HostView from "./components/HostView";
 import { db } from "./firebaseConfig";
