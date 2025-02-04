@@ -7,6 +7,7 @@ function GameScreen({ lobbyId, leaveGame }) {
   const [buzzer, setBuzzer] = useState(null);
   const [lobbyData, setLobbyData] = useState(null);
 
+  // 🔥 Fetch real-time updates from Firestore
   useEffect(() => {
     if (!lobbyId) return;
 
@@ -22,6 +23,7 @@ function GameScreen({ lobbyId, leaveGame }) {
     return () => unsubscribe();
   }, [lobbyId]);
 
+  // 🔥 Reset buzzer after 5 seconds
   useEffect(() => {
     if (buzzer) {
       const timer = setTimeout(() => {
@@ -31,6 +33,7 @@ function GameScreen({ lobbyId, leaveGame }) {
     }
   }, [buzzer]);
 
+  // 🔥 Handle player buzzing in
   const buzz = (player) => {
     if (!buzzer) {
       setBuzzer(player);

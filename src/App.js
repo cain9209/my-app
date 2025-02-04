@@ -9,7 +9,8 @@ import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 
 function App() {
-  const navigate = useNavigate(); // ✅ Now useNavigate() works correctly
+  const navigate = useNavigate(); // ✅ useNavigate imported correctly
+  const safeNavigate = useCallback((path) => navigate(path), [navigate]); // ✅ Prevents unnecessary re-renders
 
   const [lobbyId, setLobbyId] = useState(null);
   const [lobbyData, setLobbyData] = useState(null);
@@ -19,9 +20,6 @@ function App() {
   const [playerName, setPlayerName] = useState("");
   const [lobbyIdInput, setLobbyIdInput] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // ✅ Use useCallback to prevent unnecessary re-renders
-  const safeNavigate = useCallback((path) => navigate(path), [navigate]);
 
   // 🔥 Create a new lobby
   const hostLobby = async () => {
@@ -36,7 +34,7 @@ function App() {
 
     await setDoc(newLobbyRef, {
       host: hostName,
-      players: {}, // Store players as an object
+      players: {},
       gameStarted: false,
       buzzer: null,
       messages: [],
@@ -44,7 +42,7 @@ function App() {
 
     setLobbyId(newLobbyId);
     setIsHost(true);
-    safeNavigate("/host"); // ✅ Use memoized navigate function
+    safeNavigate("/host");
     setLoading(false);
   };
 
@@ -70,7 +68,7 @@ function App() {
 
       const updatedPlayers = {
         ...(lobbyData.players || {}),
-        [playerName]: 0, // Start new player at 0 XP
+        [playerName]: 0,
       };
 
       await updateDoc(lobbyRef, { players: updatedPlayers });
@@ -78,7 +76,7 @@ function App() {
       setLobbyId(lobbyIdInput);
       setGameStarted(lobbyData.gameStarted);
       setIsHost(false);
-      safeNavigate("/game"); // ✅ Use memoized navigate function
+      safeNavigate("/game");
     } else {
       alert("Lobby ID not found!");
     }
@@ -97,12 +95,12 @@ function App() {
 
       if (lobbyData.players && typeof lobbyData.players === "object") {
         const updatedPlayers = { ...lobbyData.players };
-        delete updatedPlayers[playerName]; // ✅ Remove player from object
+        delete updatedPlayers[playerName];
 
         await updateDoc(lobbyRef, { players: updatedPlayers });
 
         if (Object.keys(updatedPlayers).length === 0) {
-          await updateDoc(lobbyRef, { gameStarted: false }); // ✅ Reset game if empty
+          await updateDoc(lobbyRef, { gameStarted: false });
         }
       }
     }
@@ -110,7 +108,7 @@ function App() {
     setLobbyId(null);
     setGameStarted(false);
     setIsHost(false);
-    safeNavigate("/"); // ✅ Use memoized navigate function
+    safeNavigate("/");
   };
 
   // 🔥 Listen for real-time updates (Firestore)
@@ -124,7 +122,6 @@ function App() {
         setLobbyData(data);
         setGameStarted(data.gameStarted);
 
-        // ✅ If game has started, move players to game screen (but NOT the host)
         if (data.gameStarted && !isHost) {
           safeNavigate("/game");
         }
@@ -135,14 +132,13 @@ function App() {
     });
 
     return () => unsubscribe();
-  }, [lobbyId, isHost, safeNavigate]); // ✅ Fixed the missing dependency issue
+  }, [lobbyId, isHost, safeNavigate]); // ✅ Fixed dependency warning
 
   // 🔥 Start the game
   const startGame = async () => {
     if (!lobbyId) return;
-
     const lobbyRef = doc(db, "lobbies", lobbyId);
-    await updateDoc(lobbyRef, { gameStarted: true }); // ✅ Update Firestore
+    await updateDoc(lobbyRef, { gameStarted: true });
   };
 
   return (
