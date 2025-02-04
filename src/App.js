@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
 import Navbar from "./components/NavBar";
 import GameScreen from "./components/GameScreen";
 import HostView from "./components/HostView";
@@ -19,6 +19,9 @@ function App() {
   const [playerName, setPlayerName] = useState("");
   const [lobbyIdInput, setLobbyIdInput] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // ✅ Use useCallback to prevent unnecessary re-renders
+  const safeNavigate = useCallback((path) => navigate(path), [navigate]);
 
   // 🔥 Create a new lobby
   const hostLobby = async () => {
@@ -41,7 +44,7 @@ function App() {
 
     setLobbyId(newLobbyId);
     setIsHost(true);
-    navigate("/host"); // ✅ Redirect host to Host View
+    safeNavigate("/host"); // ✅ Use memoized navigate function
     setLoading(false);
   };
 
@@ -75,7 +78,7 @@ function App() {
       setLobbyId(lobbyIdInput);
       setGameStarted(lobbyData.gameStarted);
       setIsHost(false);
-      navigate("/game"); // ✅ Players go to game screen
+      safeNavigate("/game"); // ✅ Use memoized navigate function
     } else {
       alert("Lobby ID not found!");
     }
@@ -107,7 +110,7 @@ function App() {
     setLobbyId(null);
     setGameStarted(false);
     setIsHost(false);
-    navigate("/"); // ✅ Redirect player back to home
+    safeNavigate("/"); // ✅ Use memoized navigate function
   };
 
   // 🔥 Listen for real-time updates (Firestore)
@@ -122,10 +125,8 @@ function App() {
         setGameStarted(data.gameStarted);
 
         // ✅ If game has started, move players to game screen (but NOT the host)
-        if (data.gameStarted) {
-          if (!isHost) {
-            navigate("/game");
-          }
+        if (data.gameStarted && !isHost) {
+          safeNavigate("/game");
         }
       } else {
         console.log("❌ Lobby does not exist!");
@@ -134,7 +135,7 @@ function App() {
     });
 
     return () => unsubscribe();
-  }, [lobbyId, isHost]);
+  }, [lobbyId, isHost, safeNavigate]); // ✅ Fixed the missing dependency issue
 
   // 🔥 Start the game
   const startGame = async () => {
