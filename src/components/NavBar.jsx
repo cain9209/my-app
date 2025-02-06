@@ -40,10 +40,10 @@ const NavBar = () => {
         </button> 
         
         <ul className={`nav-links ${isMenuOpen ? "show-menu" : ""}`}>
-          <li><a href="https://google.com" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Home</a></li>
+          <li><a href="https://www.ictrivia.com/target=" target = "_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Home</a></li>
           <li><a href="https://google.com" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Song Request</a></li>
-          <li><a href="https://google.com" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>About</a></li>
-          <li><a href="https://google.com" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
+          <li><a href="https://www.ictrivia.com/about" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>About</a></li>
+          <li><a href="https://www.ictrivia.com/contact" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
         </ul>
       </div>
     </nav>
