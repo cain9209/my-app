@@ -28,11 +28,7 @@ const NavBar = () => {
       </div>
 
       {/* Dropdown Menu */}
-      <div 
-        className="menu-container"
-        onMouseClick={() => setIsMenuOpen(true)}
-        onMouseDown={() => setIsMenuOpen(false)}
-      >
+      <div className="menu-container">
         <button 
           className="menu-button" 
           onClick={(e) => {
@@ -40,14 +36,14 @@ const NavBar = () => {
             setIsMenuOpen(prevState => !prevState);
           }}
         >
-          ☰ Menu
+        ☰ Menu
         </button> 
         
         <ul className={`nav-links ${isMenuOpen ? "show-menu" : ""}`}>
-          <li><Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link></li>
-          <li><Link to="/lobby" onClick={() => setIsMenuOpen(false)}>Song Request</Link></li>
-          <li><Link to="/about" onClick={() => setIsMenuOpen(false)}>About</Link></li>
-          <li><Link to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link></li>
+          <li><a href="https://google.com" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Home</a></li>
+          <li><a href="https://google.com" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Song Request</a></li>
+          <li><a href="https://google.com" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>About</a></li>
+          <li><a href="https://google.com" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
         </ul>
       </div>
     </nav>

@@ -1,11 +1,73 @@
-/* Navbar container */
+/* Navbar */
 .navbar {
-    display: flex;
-    justify-content: space-between; /* This keeps items apart */
-    align-items: center;
+    width: 100%;
+    background-color: #222;
+    color: white;
     padding: 15px 20px;
-}
-
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 60px;
+    z-index: 1000;
+  }
+  
+  /* Menu Button */
+  .menu-button {
+    background: #1d4ed8;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .menu-button:hover {
+    background: #1e40af;
+  }
+  
+  /* Navigation Links (Dropdown) */
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background: #333;
+    border-radius: 10px;
+    list-style: none;
+    padding: 10px 0;
+    width: 150px;
+    display: none;
+    flex-direction: column;
+    text-align: left;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1200;
+  }
+  
+  /* Show Menu when Active */
+  .show-menu {
+    display: flex;
+  }
+  
+  /* Navigation Links */
+  .nav-links li {
+    padding: 10px 15px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    display: block;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .nav-links a:hover {
+    color: #ffcc00;
+  }
+  
 /* Fix logo alignment */
 .logo {
     display: flex;
@@ -32,63 +94,4 @@
     width: 60px;
     height: 60px;
     max-width: 100%;
-}
-
-/* Dropdown Menu Container */
-.menu-container {
-    position: relative;
-    z-index: 1100;
-    padding: 0;
-    margin-left: 10px; /* Moves the menu button towards the left */
-}
-
-
-/* Dropdown menu */
-.nav-links {
-    position: absolute;
-    top: 50px; /* Position it below the navbar */
-    right: 0; /* Align it to the right edge of the menu button */
-    background: #333;
-    border-radius: 10px;
-    list-style: none;
-    padding: 10px 0;
-    width: 180px; /* Increase width slightly */
-    display: none;
-    flex-direction: column;
-    text-align: left; /* Align text for better readability */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    z-index: 1200;
-}
-
-
-
-/* Show menu when clicked */
-.show-menu {
-    display: flex !important; /* Ensure it's visible when toggled */
-    flex-direction: column;
-}
-
-
-/* Prevents App.css from covering dropdown */
-.container {
-    position: relative;
-    z-index: 1;
-    overflow: visible !important;
-}
-
-/* Fix button inside dropdown */
-.nav-links li {
-    padding: 10px 15px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    transition: color 0.3s ease-in-out;
-    display: block;
-}
-
-.nav-links a:hover {
-    color: #ffcc00;
 }
