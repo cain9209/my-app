@@ -2,89 +2,120 @@
 body {
   background-color: #5b0b0b; /* Dark red background */
   font-family: Arial, sans-serif;
-  text-align: center;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh; /* Ensures full height */
+  width: 100vw;
 }
 
-/* Ensures all elements respect box-sizing */
-*, *::before, *::after {
-  box-sizing: inherit;
+/* Navbar */
+.navbar {
+  width: 100%;
+  background-color: #222;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60px;
+  z-index: 1000;
 }
 
-/* Centering the container */
+/* Navbar brand text */
+.navbar h1 {
+  margin: 0;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+/* Right-side menu button */
+.navbar .menu {
+  background-color: #1d4ed8;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+.navbar .menu:hover {
+  background-color: #1e40af;
+}
+
+/* Ensures content sits below navbar */
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers horizontally */
-  justify-content: center; /* Centers vertically */
-  height: 100vh; /* Full viewport height */
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  margin-top: 80px; /* Push content below navbar */
 }
 
 /* Card styling */
 .card {
   background: white;
-  padding: 30px;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
   text-align: center;
-  margin: 15px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-/* Input fields inside .card */
-.card input {
-  width: 90%; /* Prevents overflow */
-  max-width: 280px; /* Adjusted to fit inside card */
+/* Input and Button Styling */
+input, button {
+  width: 100%;
   padding: 12px;
-  margin: 10px auto; /* Centers input */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  text-align: center;
-  font-size: 16px;
-  display: block; /* Ensures proper spacing */
-}
-
-/* Fix for button alignment */
-.card button {
-  width: 90%;
-  max-width: 280px;
-}
-
-/* Remove conflicting global input styles */
-input {
-  width: auto !important; /* Overrides any global styles */
-}
-
-/* Button styling */
-button {
-  padding: 12px;
-  border: none;
-  border-radius: 5px;
-  background-color: #1d4ed8;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
   margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #1d4ed8;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
 }
 
 button:hover {
-  background-color: #1e40af;
+  background: #1e40af;
 }
 
-/* Responsive design */
+/* Responsive adjustments */
 @media (max-width: 500px) {
-  .card {
-    width: 90%;
+  .container {
+    max-width: 90%;
   }
 
-  .card input,
-  .card button {
-    max-width: 90%;
+  .card {
+    width: 100%;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+
+  .navbar h1 {
+    margin-bottom: 10px;
   }
 }

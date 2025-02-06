@@ -1,24 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Lobby({ lobbyId, lobbyData }) {
+function Lobby({ handleHostLobby, handleJoinLobby }) {
+  const [name, setName] = useState("");
+  const [lobbyId, setLobbyId] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <div className="container">
-      <h1>Game Lobby</h1>
-      <h2>Lobby ID: {lobbyId}</h2>
-      <p>Share this ID with friends!</p>
-
-      <h3>Host: {lobbyData?.host || "Unknown"} (Hosting)</h3>
-
-      <h3>Players Joining:</h3>
-      {lobbyData?.players && lobbyData.players.length > 0 ? (
-        <ul>
-          {lobbyData.players.map((player, index) => (
-            <li key={index}>{player}</li>
-          ))}
+    <div>
+      {/* Navbar */}
+      <nav className="navbar">
+        <div className="logo">
+          <img src="your-logo.png" alt="Logo" />
+          <a href="/">Intelligence Check</a>
+        </div>
+        <button className="menu-btn" onClick={() => setMenuOpen(!menuOpen)}>☰ Menu</button>
+        <ul className={`nav-links ${menuOpen ? "show-menu" : ""}`}>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Song Request</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
         </ul>
-      ) : (
-        <p>No players have joined yet.</p>
-      )}
+      </nav>
+
+      {/* Submission Form */}
+      <div className="container">
+        <div className="card">
+          <h2>Join or Host a Lobby</h2>
+          <p>Enter your details below to create or join a game.</p>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (lobbyId) {
+                handleJoinLobby(lobbyId, name); 
+              } else {
+                handleHostLobby(name);
+              }
+            }}
+          >
+            <input
+              type="text"
+              placeholder="Enter Your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+
+            <input
+              type="text"
+              placeholder="Enter Lobby ID (Leave empty to host)"
+              value={lobbyId}
+              onChange={(e) => setLobbyId(e.target.value)}
+            />
+
+            <button type="submit">
+              {lobbyId ? "Join Lobby" : "Host a Lobby"}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,10 +1,13 @@
 import React from "react";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import { useNavigate } from 'react-router-dom';
 import "../styles/Host.css";
 
 function HostView({ lobbyId, lobbyData, startGame }) {
-  // 🔥 Function to update a player's XP in Firestore
+  const navigate = useNavigate(); // React Router for redirection
+
+  // 🔥 Function to update player XP in Firestore
   const updatePoints = async (player, change) => {
     if (!lobbyId || !lobbyData) return;
 
@@ -15,6 +18,19 @@ function HostView({ lobbyId, lobbyData, startGame }) {
     updatedPlayers[player] = Math.max(0, (updatedPlayers[player] || 0) + change);
 
     await updateDoc(lobbyRef, { players: updatedPlayers });
+  };
+
+  // 🔥 Function to delete the lobby when the host leaves
+  const handleLeaveAndCloseLobby = async () => {
+    if (!lobbyId) return;
+
+    try {
+      const lobbyRef = doc(db, "lobbies", lobbyId);
+      await deleteDoc(lobbyRef); // ❌ Deletes the lobby from Firestore
+      navigate.push("/lobby"); // 🔄 Redirects to the main lobby page
+    } catch (error) {
+      console.error("Error closing the lobby:", error);
+    }
   };
 
   return (
@@ -54,6 +70,11 @@ function HostView({ lobbyId, lobbyData, startGame }) {
           🚀 START GAME
         </button>
       )}
+
+      {/* 🔴 Button to leave and shut down the lobby */}
+      <button className="host-button leave-button" onClick={handleLeaveAndCloseLobby}>
+        ❌ LEAVE & CLOSE LOBBY
+      </button>
     </div>
   );
 }
