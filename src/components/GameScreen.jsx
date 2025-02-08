@@ -111,29 +111,24 @@ function GameScreen({ lobbyId, playerName }) {
         <h2>⏳ Waiting for someone to buzz in...</h2>
       )}
 
-      {/* 📊 Player XP Board */}
-      <div className="xp-container">
-        <h3>📊 Player XP</h3>
-        {lobbyData?.players && Object.keys(lobbyData.players).length > 0 ? (
-          <ul className="xp-list">
-            {Object.entries(lobbyData.players).map(([player, xp]) => (
-              <li key={player} className="xp-item">
-                <span>{player}: <strong>{xp ?? 0} XP</strong></span>
-                
-                {/* 🔼 XP Buttons (Only Host Sees This) */}
-                {lobbyData?.host === playerName && (
-                  <div className="points-controls">
-                    <button className="points-button" onClick={() => updatePoints(player, -1)}>➖</button>
-                    <button className="points-button" onClick={() => updatePoints(player, 1)}>➕</button>
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No players joined yet.</p>
-        )}
-      </div>
+    {/* 📊 Player XP Board */}
+<div className="xp-container">
+  <h3>📊 Player XP</h3>
+  {lobbyData?.players && Object.keys(lobbyData.players).length > 0 ? (
+    <ul className="xp-list">
+      {Object.entries(lobbyData.players).map(([player, xp]) =>
+        playerName === player || lobbyData?.host === playerName ? (
+          <li key={player} className="xp-item">
+            <span>{player}: <strong>{xp ?? 0} XP</strong></span>
+          </li>
+        ) : null
+      )}
+    </ul>
+  ) : (
+    <p>No players joined yet.</p>
+  )}
+</div>
+
 
       {/* 🔘 Player Buzz Button */}
       <button className="remote-button" onClick={buzz} disabled={!!lobbyData?.buzzer}>
