@@ -6,7 +6,7 @@ import HostView from "./components/HostView";
 import { db } from "./firebaseConfig";
 import { doc, setDoc, getDoc, updateDoc, onSnapshot } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
-import "./App.css";
+import "./styles/Lobby.css";
 
 function App() {
   const navigate = useNavigate(); // ✅ useNavigate imported correctly

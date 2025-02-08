@@ -23,15 +23,19 @@ function HostView({ lobbyId, lobbyData, startGame }) {
   // 🔥 Function to delete the lobby when the host leaves
   const handleLeaveAndCloseLobby = async () => {
     if (!lobbyId) return;
-
+  
     try {
       const lobbyRef = doc(db, "lobbies", lobbyId);
-      await deleteDoc(lobbyRef); // ❌ Deletes the lobby from Firestore
-      navigate.push("/lobby"); // 🔄 Redirects to the main lobby page
+      await deleteDoc(lobbyRef); // ✅ Ensure Firestore finishes deleting the lobby
+      console.log("Lobby deleted successfully!");
+  
+      navigate("/lobby"); // ✅ Redirect AFTER deletion is confirmed
     } catch (error) {
       console.error("Error closing the lobby:", error);
     }
   };
+  
+  
 
   return (
     <div className="host-container">

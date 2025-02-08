@@ -1,97 +1,129 @@
 /* Navbar */
 .navbar {
-    width: 100%;
-    background-color: #222;
-    color: white;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 60px;
-    z-index: 1000;
-  }
-  
-  /* Menu Button */
-  .menu-button {
-    background: #1d4ed8;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-  }
-  
-  .menu-button:hover {
-    background: #1e40af;
-  }
-  
-  /* Navigation Links (Dropdown) */
-  .nav-links {
-    position: absolute;
-    top: 60px;
-    right: 10px;
-    background: #333;
-    border-radius: 10px;
-    list-style: none;
-    padding: 10px 0;
-    width: 150px;
-    display: none;
-    flex-direction: column;
-    text-align: left;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    z-index: 1200;
-  }
-  
-  /* Show Menu when Active */
-  .show-menu {
-    display: flex;
-  }
-  
-  /* Navigation Links */
-  .nav-links li {
-    padding: 10px 15px;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    display: block;
-    transition: color 0.3s ease-in-out;
-  }
-  
-  .nav-links a:hover {
-    color: #ffcc00;
-  }
-  
-/* Fix logo alignment */
+  width: 100%;
+  background-color: #222;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60px;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+/* Logo Section */
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0; /* Prevents it from shrinking */
-    padding-left: 10px; /* Keeps it inside navbar */
-    max-width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 10px;
 }
 
-/* Logo text */
 .logo a {
-    color: white;
-    font-size: 40px;
-    text-decoration: none;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  color: white;
+  font-size: 24px; /* Default size for desktops */
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-/* Logo icon */
+/* Adjust font size for tablets */
+@media (max-width: 1024px) {
+  .logo a {
+    font-size: 20px;
+  }
+}
+
+/* Adjust font size for mobile */
+@media (max-width: 768px) {
+  .logo a {
+    font-size: 16px;
+  }
+}
+
+
 .logo-icon {
-    width: 60px;
-    height: 60px;
-    max-width: 100%;
+  width: 40px;
+  height: 40px;
+  max-width: 100%;
+}
+
+/* Menu Button (For Mobile) */
+.menu-button {
+  background: #1d4ed8;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  display: block; /* Ensures it always shows */
+}
+
+/* Navigation Links (Dropdown) */
+.nav-links {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  background: #333;
+  border-radius: 10px;
+  list-style: none;
+  padding: 10px 0;
+  width: 180px; /* Slightly wider for better spacing */
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  text-align: center; /* Center links for mobile */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1200;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+/* Show Menu when Active */
+.show-menu {
+  display: flex;
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Navigation Links */
+.nav-links li {
+  padding: 12px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  display: block;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+  color: #ffcc00;
+}
+
+/* Mobile-Specific Fixes */
+@media (max-width: 768px) {
+  .nav-links {
+    width: 90%; /* Make sure it fits the screen */
+    right: 5%; /* Center it better */
+    left: auto;
+  }
+
+  .nav-links a {
+    font-size: 16px; /* Adjust text size for smaller screens */
+  }
+
+  .menu-button {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
 }

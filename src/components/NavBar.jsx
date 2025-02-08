@@ -22,7 +22,6 @@ const NavBar = () => {
       {/* Logo Section */}
       <div className="logo">
         <Link to="/" className="logo-link">
-          Intelligence Check
           <img src="/Max D20.png" alt="Logo" className="logo-icon" />
         </Link>
       </div>
