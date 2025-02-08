@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom"; // ✅ Corrected import
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Navbar from "./components/NavBar";
 import GameScreen from "./components/GameScreen";
 import HostView from "./components/HostView";
@@ -10,14 +10,15 @@ import "./styles/Lobby.css";
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation(); // ✅ Detects current URL
   const safeNavigate = useCallback((path) => navigate(path), [navigate]);
 
-  // 🔥 Load from Local Storage
+  // ✅ Load values from Local Storage on refresh
   const [lobbyId, setLobbyId] = useState(localStorage.getItem("lobbyId") || null);
   const [playerName, setPlayerName] = useState(localStorage.getItem("playerName") || "");
   const [lobbyData, setLobbyData] = useState(null);
-  const [isHost, setIsHost] = useState(false);
-  const [gameStarted, setGameStarted] = useState(false);
+  const [isHost, setIsHost] = useState(localStorage.getItem("isHost") === "true");
+  const [gameStarted, setGameStarted] = useState(false); // 🔥 Load from Firestore, NOT localStorage!
   const [hostName, setHostName] = useState("");
   const [lobbyIdInput, setLobbyIdInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -51,6 +52,7 @@ function App() {
     setLobbyId(newLobbyId);
     setPlayerName(hostName);
     localStorage.setItem("lobbyId", newLobbyId);
+    localStorage.setItem("isHost", "true");
     setIsHost(true);
     safeNavigate(`/host/${newLobbyId}`);
     setLoading(false);
@@ -81,6 +83,7 @@ function App() {
 
       setLobbyId(lobbyIdInput);
       localStorage.setItem("lobbyId", lobbyIdInput);
+      localStorage.setItem("isHost", "false");
       setGameStarted(lobbyData.gameStarted);
       setIsHost(false);
       safeNavigate(`/game/${lobbyIdInput}`);
@@ -91,33 +94,46 @@ function App() {
   };
 
   // 🔥 Listen for real-time updates (Firestore)
-  useEffect(() => {
-    if (!lobbyId) return;
+  // 🔥 Listen for real-time updates (Firestore)
+useEffect(() => {
+  if (!lobbyId) return;
 
-    console.log("📡 Listening to Firestore for lobby:", lobbyId);
-    const lobbyRef = doc(db, "lobbies", lobbyId);
+  console.log("📡 Listening to Firestore for lobby:", lobbyId);
+  const lobbyRef = doc(db, "lobbies", lobbyId);
 
-    const unsubscribe = onSnapshot(lobbyRef, (snapshot) => {
-      if (snapshot.exists()) {
-        const data = snapshot.data();
-        setLobbyData(data);
-        setGameStarted(data.gameStarted);
+  const unsubscribe = onSnapshot(lobbyRef, (snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.data();
+      setLobbyData(data);
+      setGameStarted(data.gameStarted);
 
-        if (data.gameStarted && !isHost) {
-          console.log("🚀 Game started, navigating to game screen...");
-          safeNavigate(`/game/${lobbyId}`);
-        }
-      } else {
-        console.error("❌ Lobby does not exist! Resetting state...");
-        localStorage.removeItem("lobbyId");
-        setLobbyData(null);
-        setLobbyId(null);
-        safeNavigate("/");
+      // ✅ Store values in Local Storage to persist after refresh
+      localStorage.setItem("gameStarted", data.gameStarted ? "true" : "false");
+
+      // 🔥 Only move players to game screen, NOT the host!
+      if (data.gameStarted && !isHost && location.pathname !== `/game/${lobbyId}`) {
+        console.log("🚀 Game started, navigating to game screen...");
+        safeNavigate(`/game/${lobbyId}`);
       }
-    });
 
-    return () => unsubscribe();
-  }, [lobbyId, isHost, safeNavigate]);
+      // ✅ If host, make sure they stay on the host page
+      if (isHost && location.pathname !== `/host/${lobbyId}`) {
+        console.log("🏠 Host detected, keeping them on the host screen.");
+        safeNavigate(`/host/${lobbyId}`);
+      }
+    } else {
+      console.error("❌ Lobby does not exist! Resetting state...");
+      localStorage.removeItem("lobbyId");
+      localStorage.removeItem("gameStarted");
+      localStorage.removeItem("isHost");
+      setLobbyData(null);
+      setLobbyId(null);
+      safeNavigate("/");
+    }
+  });
+
+  return () => unsubscribe();
+}, [lobbyId, isHost, location.pathname, safeNavigate]);
 
   return (
     <>
@@ -125,7 +141,7 @@ function App() {
       <div className="app-container">
         {loading && <div className="loading">⏳ Loading...</div>}
 
-        <Routes> 
+        <Routes>
           {/* ✅ Fixed lobby selection UI */}
           <Route path="/" element={
             <div className="lobby-selection">
@@ -168,9 +184,13 @@ function App() {
             isHost ? <HostView lobbyId={lobbyId} lobbyData={lobbyData} /> : <h2>🚫 Unauthorized</h2>
           } />
 
-          {/* ✅ Game Screen Route (Only if game is started) */}
+          {/* ✅ Game Screen Route (Handles Refresh Issues) */}
           <Route path="/game/:lobbyId" element={
-            gameStarted ? <GameScreen lobbyId={lobbyId} playerName={playerName} lobbyData={lobbyData} /> : <h2>⏳ Waiting for Host...</h2>
+            gameStarted ? (
+              <GameScreen lobbyId={lobbyId} playerName={playerName} lobbyData={lobbyData} />
+            ) : (
+              <h2>⏳ Waiting for Host...</h2>
+            )
           } />
         </Routes>
       </div>

@@ -148,11 +148,12 @@ function GameScreen({ lobbyId, playerName }) {
       )}
 
       {/* 🛑 End Game (Only Host) */}
-      {lobbyData?.host === playerName && (
-        <button className="end-game" onClick={endGame} style={{ background: "red", color: "white" }}>
-          🛑 End Game
-        </button>
-      )}
+{lobbyData?.host === playerName && window.location.pathname.includes("/host") && (
+  <button className="end-game" onClick={endGame} style={{ background: "red", color: "white" }}>
+    🛑 End Game
+  </button>
+)}
+
     </div>
   );
 }
