@@ -120,4 +120,43 @@
       padding: 8px 16px;
     }
   }
+  /* 🏆 XP Controls */
+.points-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.points-button {
+  background: #ffcc00;
+  border: none;
+  color: black;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.points-button:hover {
+  background: #e6b800;
+}
+
+/* 🏆 Player List */
+.host-player-list {
+  list-style: none;
+  padding: 0;
+}
+
+.player-item {
+  background: black;
+  color: #0f0;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  text-shadow: 0px 0px 5px #0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
   

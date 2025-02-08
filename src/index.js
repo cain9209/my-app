@@ -1,12 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom/client"; // ✅ Use createRoot
-import { BrowserRouter as Router } from "react-router-dom";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom"; // ✅ Wrap App with Router
 import App from "./App";
-import "./index.css";
 
-const root = ReactDOM.createRoot(document.getElementById("root")); // ✅ Use createRoot
-root.render(
-  <Router>
+ReactDOM.render(
+  <Router> {/* ✅ This should be the only <Router> */}
     <App />
-  </Router>
+  </Router>,
+  document.getElementById("root")
 );

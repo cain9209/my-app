@@ -1,159 +1,102 @@
-/* 🎮 Game Screen Styling */
-.container {
-  text-align: center;
-  color: white;
-  font-family: Arial, sans-serif;
-  width: 90%;
-  max-width: 500px;
-  margin: auto;
-  background: white;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-}
-
-/* 📟 Remote Control Container */
-.remote-container {
+/* 🏆 XP Controls */
+.points-controls {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  gap: 10px;
 }
 
-/* 🎛️ Remote Box */
-.remote {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #222;
-  width: 220px;
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 3px 6px rgba(0, 0, 0, 0.2);
-  border: 2px solid #444;
-  position: relative;
-}
-
-/* 🟠 Remote Buttons */
-.remote-button {
-  width: 60px;
-  height: 60px;
-  margin: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
-  background-color: #333;
+.points-button {
+  background: #ffcc00;
   border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform 0.1s, background-color 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* 🔄 Button Effects */
-.remote-button:hover {
-  background-color: #444;
-}
-
-.remote-button:active {
-  transform: scale(0.9);
-  background-color: #ff4500;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-/* 🚀 Buzzed-in Message */
-.buzzed-message {
-  color: #ff4500;
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-/* 🔄 Clear Buzzer Button */
-.clear-buzzer {
-  margin-top: 15px;
-  padding: 10px 15px;
-  background-color: #555;
-  color: white;
-  border: none;
+  color: black;
+  padding: 8px;
   border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.points-button:hover {
+  background: #e6b800;
+}
+
+/* 🏆 XP List */
+.xp-container {
+  margin-top: 20px;
+  background: #444;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+}
+
+.xp-list {
+  list-style: none;
+  padding: 0;
+}
+
+.xp-item {
+  background: black;
+  color: #0f0;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  text-shadow: 0px 0px 5px #0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 🔘 Buzz-In Button */
+.remote-button {
+  background: #ff4444;
+  border: none;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: background 0.3s ease-in-out;
+}
+
+.remote-button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+
+.remote-button:hover {
+  background: #cc0000;
+}
+
+/* 🔄 Clear Buzzer */
+.clear-buzzer {
+  background: #007bff;
+  border: none;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  transition: background 0.3s;
 }
 
 .clear-buzzer:hover {
-  background-color: #777;
-}
-
-/* 🚪 Leave Game Button */
-.leave-game {
-  margin-top: 20px;
-  padding: 10px 15px;
-  background-color: red;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.leave-game:hover {
-  background-color: darkred;
-}
-
-/* 💬 Chat Box */
-.chat-container {
-  border: 1px solid #ddd;
-  padding: 10px;
-  height: 150px;
-  overflow-y: auto;
-  background: #fff;
-  border-radius: 5px;
-}
-
-/* 🔘 General Buttons */
-button {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 100%;
-  transition: background 0.3s ease;
-}
-
-button:hover {
   background: #0056b3;
 }
 
-button:active {
-  background: #003d82;
-}
-
-/* 📝 Input Fields */
-input {
-  width: 90%;
-  padding: 10px;
-  margin: 5px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+/* 🛑 End Game */
+.end-game {
+  background: red;
+  border: none;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
   font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.3s;
 }
 
-/* 🌍 Responsive Adjustments */
-@media (max-width: 600px) {
-  .container {
-    width: 95%;
-    padding: 15px;
-  }
-
-  button {
-    font-size: 14px;
-    padding: 8px;
-  }
-
-  input {
-    font-size: 14px;
-    padding: 8px;
-  }
+.end-game:hover {
+  background: darkred;
 }

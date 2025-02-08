@@ -1,62 +1,73 @@
 import React, { useState, useEffect } from "react";
 import { doc, updateDoc, deleteDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebaseConfig";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import "../styles/Host.css";
 
-function HostView({ lobbyId, lobbyData, startGame }) {
-  const navigate = useNavigate(); // React Router for redirection
+function HostView({ lobbyId }) {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [lobbyData, setLobbyData] = useState(null);
 
+  // 🔥 Fetch live updates for the lobby
   useEffect(() => {
     if (!lobbyId) return;
-    
+
     const lobbyRef = doc(db, "lobbies", lobbyId);
-    
     const unsubscribe = onSnapshot(lobbyRef, (snapshot) => {
-      if (!snapshot.exists()) {
-        console.log("⚠️ Lobby has been deleted! Redirecting...");
+      if (snapshot.exists()) {
+        setLobbyData(snapshot.data());
+      } else {
+        console.log("⚠️ Lobby deleted, redirecting...");
         localStorage.removeItem("lobbyId");
-        localStorage.removeItem("lobbyData");
-        navigate("/lobby");
+        navigate("/");
       }
     });
 
     return () => unsubscribe();
   }, [lobbyId, navigate]);
 
-  // 🔥 Function to update player XP in Firestore
+  // 🏆 Update XP for a player
   const updatePoints = async (player, change) => {
     if (!lobbyId || !lobbyData) return;
 
-    const lobbyRef = doc(db, "lobbies", lobbyId);
-    const updatedPlayers = { ...lobbyData.players };
+    try {
+      const lobbyRef = doc(db, "lobbies", lobbyId);
+      const updatedPlayers = { ...lobbyData.players };
+      updatedPlayers[player] = Math.max(0, (updatedPlayers[player] || 0) + change);
 
-    // ✅ Ensure XP is always a number
-    updatedPlayers[player] = Math.max(0, (updatedPlayers[player] || 0) + change);
-
-    await updateDoc(lobbyRef, { players: updatedPlayers });
+      await updateDoc(lobbyRef, { players: updatedPlayers });
+    } catch (error) {
+      console.error("🚨 Error updating XP:", error);
+    }
   };
 
-  // 🔥 Function to delete the lobby when the host leaves
-  const handleLeaveAndCloseLobby = async () => {
+  // 🔥 Start Game
+  const startGame = async () => {
     if (!lobbyId) return;
-  
-    setLoading(true);
 
     try {
       const lobbyRef = doc(db, "lobbies", lobbyId);
-      await deleteDoc(lobbyRef); // ✅ Delete lobby from Firestore
+      await updateDoc(lobbyRef, { gameStarted: true });
 
-      console.log("✅ Lobby deleted successfully!");
-
-      // ✅ Clear localStorage
-      localStorage.removeItem("lobbyId");
-      localStorage.removeItem("lobbyData");
-
-      navigate("/lobby"); // ✅ Redirect AFTER deletion
+      console.log("✅ Game started successfully!");
     } catch (error) {
-      console.error("🚨 Error closing the lobby:", error);
+      console.error("🚨 Error starting game:", error);
+    }
+  };
+
+  // 🔥 Host leaves & closes lobby
+  const handleLeaveAndCloseLobby = async () => {
+    if (!lobbyId) return;
+    setLoading(true);
+
+    try {
+      await deleteDoc(doc(db, "lobbies", lobbyId));
+      console.log("✅ Lobby deleted!");
+      localStorage.removeItem("lobbyId");
+      navigate("/");
+    } catch (error) {
+      console.error("🚨 Error deleting lobby:", error);
     } finally {
       setLoading(false);
     }
@@ -79,10 +90,11 @@ function HostView({ lobbyId, lobbyData, startGame }) {
         <ul className="host-player-list">
           {Object.entries(lobbyData.players).map(([player, xp]) => (
             <li key={player} className="player-item">
-              <span className="player-name">{player}</span>
+              <span className="player-name">{player}: <strong>{xp ?? 0} XP</strong></span>
+              
+              {/* 🔼 XP Buttons for Host */}
               <div className="points-controls">
                 <button className="points-button" onClick={() => updatePoints(player, -1)}>➖</button>
-                <span className="player-points">{xp ?? 0} XP</span>
                 <button className="points-button" onClick={() => updatePoints(player, 1)}>➕</button>
               </div>
             </li>
@@ -98,7 +110,6 @@ function HostView({ lobbyId, lobbyData, startGame }) {
         </button>
       )}
 
-      {/* 🔴 Button to leave and shut down the lobby */}
       <button className="host-button leave-button" onClick={handleLeaveAndCloseLobby} disabled={loading}>
         {loading ? "Closing..." : "❌ LEAVE & CLOSE LOBBY"}
       </button>
