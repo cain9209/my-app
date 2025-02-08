@@ -43,11 +43,12 @@ function App() {
 
     await setDoc(newLobbyRef, {
       host: hostName,
-      players: { [hostName]: 0 },
+      players: {}, // ✅ Start with an empty player list (DO NOT add the host)
       gameStarted: false,
       buzzer: null,
       messages: [],
     });
+    
 
     setLobbyId(newLobbyId);
     setPlayerName(hostName);
