@@ -1,6 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import "../styles/Host.css";
@@ -13,7 +11,7 @@ function HostView({ lobbyId, lobbyData, startGame }) {
     const lobbyRef = doc(db, "lobbies", lobbyId);
     const updatedPlayers = { ...lobbyData.players };
 
-    // ✅ Ensure XP is always a number
+    // ✅ Ensure XP is always a number and prevent negative values
     updatedPlayers[player] = Math.max(0, (updatedPlayers[player] || 0) + change);
 
     await updateDoc(lobbyRef, { players: updatedPlayers });
@@ -56,32 +54,6 @@ function HostView({ lobbyId, lobbyData, startGame }) {
           🚀 START GAME
         </button>
       )}
-=======
-=======
->>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
-
-function HostView({ lobbyId, lobbyData, startGame }) {
-  return (
-    <div className="container">
-      <h1>Host Control Panel</h1>
-      <h2>Lobby ID: {lobbyId}</h2>
-      <button onClick={() => navigator.clipboard.writeText(lobbyId)}>Copy Lobby ID</button>
-      <p>Share this ID with players!</p>
-
-      <h3>Host: {lobbyData?.host} (Hosting)</h3>
-
-      <h3>Players in Lobby:</h3>
-      <ul>
-        {lobbyData?.players.map((player, index) => (
-          <li key={index}>{player}</li>
-        ))}
-      </ul>
-
-      {lobbyData?.players.length > 0 && <button onClick={startGame}>Start Game</button>}
-<<<<<<< HEAD
->>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
-=======
->>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
     </div>
   );
 }

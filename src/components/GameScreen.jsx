@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebaseConfig";
@@ -9,6 +7,7 @@ function GameScreen({ lobbyId, leaveGame }) {
   const [buzzer, setBuzzer] = useState(null);
   const [lobbyData, setLobbyData] = useState(null);
 
+  // 🔥 Listen for real-time updates on the lobby
   useEffect(() => {
     if (!lobbyId) return;
 
@@ -24,6 +23,7 @@ function GameScreen({ lobbyId, leaveGame }) {
     return () => unsubscribe();
   }, [lobbyId]);
 
+  // 🔥 Automatically clear buzzer after 5 seconds
   useEffect(() => {
     if (buzzer) {
       const timer = setTimeout(() => {
@@ -32,19 +32,8 @@ function GameScreen({ lobbyId, leaveGame }) {
       return () => clearTimeout(timer);
     }
   }, [buzzer]);
-=======
-=======
->>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
-import React, { useState } from "react";
-import "../styles/GameStyles.css";
 
-function GameScreen({ players, host, setPlayers }) {
-  const [buzzer, setBuzzer] = useState(null);
-<<<<<<< HEAD
->>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
-=======
->>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
-
+  // 🔥 Handle player buzzing in
   const buzz = (player) => {
     if (!buzzer) {
       setBuzzer(player);
@@ -53,8 +42,6 @@ function GameScreen({ players, host, setPlayers }) {
 
   return (
     <div className="container">
-<<<<<<< HEAD
-<<<<<<< HEAD
       <h1>🎮 Game On!</h1>
       <h2>Host: {lobbyData?.host || "Unknown"}</h2>
 
@@ -90,31 +77,6 @@ function GameScreen({ players, host, setPlayers }) {
       <button className="leave-game" onClick={leaveGame}>
         🚪 Leave Game
       </button>
-=======
-=======
->>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
-      <h1>Game On!</h1>
-      <h2>Host: {host}</h2>
-
-      {buzzer ? (
-        <div>
-          <h2>{buzzer} buzzed in first!</h2>
-        </div>
-      ) : (
-        <h2>Waiting for someone to buzz in...</h2>
-      )}
-
-      <ul>
-        {players.map((player, index) => (
-          <li key={index}>
-            <button onClick={() => buzz(player)}>{player} Buzz</button>
-          </li>
-        ))}
-      </ul>
-<<<<<<< HEAD
->>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
-=======
->>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
     </div>
   );
 }

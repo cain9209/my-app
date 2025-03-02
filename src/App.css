@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-/* General body styling */
+/* 🌟 General Styling */
 body {
   background-color: #5b0b0b; /* Dark red background */
   font-family: Arial, sans-serif;
@@ -8,6 +6,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color: white;
 }
 
 /* Ensures all elements respect box-sizing */
@@ -15,7 +14,7 @@ body {
   box-sizing: inherit;
 }
 
-/* Centering the container */
+/* 🎮 Centering Main Game Container */
 .container {
   display: flex;
   flex-direction: column;
@@ -25,7 +24,7 @@ body {
   width: 100%;
 }
 
-/* Card styling */
+/* 🏆 Card Styling */
 .card {
   background: white;
   padding: 30px;
@@ -37,33 +36,34 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: black;
 }
 
-/* Input fields inside .card */
+/* 🎯 Input Fields inside .card */
 .card input {
-  width: 90%; /* Prevents overflow */
-  max-width: 280px; /* Adjusted to fit inside card */
+  width: 90%;
+  max-width: 280px;
   padding: 12px;
-  margin: 10px auto; /* Centers input */
+  margin: 10px auto;
   border: 1px solid #ccc;
   border-radius: 5px;
   text-align: center;
   font-size: 16px;
-  display: block; /* Ensures proper spacing */
+  display: block;
 }
 
-/* Fix for button alignment */
+/* ✅ Fix for Button Alignment */
 .card button {
   width: 90%;
   max-width: 280px;
 }
 
-/* Remove conflicting global input styles */
+/* 🔄 Resetting Input Width Conflicts */
 input {
-  width: auto !important; /* Overrides any global styles */
+  width: auto !important;
 }
 
-/* Button styling */
+/* 🎨 Button Styling */
 button {
   padding: 12px;
   border: none;
@@ -79,18 +79,7 @@ button:hover {
   background-color: #1e40af;
 }
 
-/* Responsive design */
-@media (max-width: 500px) {
-  .card {
-    width: 90%;
-  }
-
-  .card input,
-  .card button {
-    max-width: 90%;
-=======
-=======
->>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
+/* 🖥️ App-Specific Styles (Merged with Game UI) */
 .App {
   text-align: center;
 }
@@ -106,10 +95,11 @@ button:hover {
   }
 }
 
+/* 🌍 App Header */
 .App-header {
   background-color: black;
   min-height: 100vh;
-  display: -webkit-flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -117,19 +107,29 @@ button:hover {
   color: white;
 }
 
+/* 🔗 Links */
 .App-link {
   color: #5c6da0;
 }
 
+/* 🔄 Logo Animation */
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
-<<<<<<< HEAD
->>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
-=======
->>>>>>> 2fdd0b18e5b32b9cb680ebc3af13c8f9e7291d08
+  }
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 500px) {
+  .card {
+    width: 90%;
+  }
+
+  .card input,
+  .card button {
+    max-width: 90%;
   }
 }
