@@ -11,17 +11,17 @@ function GameScreen({ lobbyId, playerName }) {
   // 🔥 Fetch live updates from Firestore
   useEffect(() => {
     if (!lobbyId) return;
-  
+
     const lobbyRef = doc(db, "lobbies", lobbyId);
     const unsubscribe = onSnapshot(lobbyRef, (snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.data();
         setLobbyData(data);
-  
-        // ✅ If game has ended, redirect players back
-        if (data.gameEnded) {
+
+        // ✅ Redirect players if the game has ended
+        if (data?.gameEnded) {
           console.warn("⚠️ Game ended! Redirecting players...");
-          navigate(`/lobby/${lobbyId}`);
+          setTimeout(() => navigate(`/lobby/${lobbyId}`), 1000); // Smooth transition
         }
       } else {
         console.error("❌ Lobby does not exist!");
@@ -29,23 +29,17 @@ function GameScreen({ lobbyId, playerName }) {
         navigate("/");
       }
     });
-  
+
     return () => unsubscribe();
   }, [lobbyId, navigate]);
-  
 
   // 🔔 Player Buzzes In
   const buzz = async () => {
-    console.log("Attempting to buzz in...");
-    console.log("lobbyId:", lobbyId);
-    console.log("playerName:", playerName);
-    console.log("Current buzzer:", lobbyData?.buzzer);
-  
     if (!lobbyId || !playerName || lobbyData?.buzzer) {
       console.warn("⚠️ Buzzer is disabled! Conditions not met.");
       return;
     }
-  
+
     try {
       const lobbyRef = doc(db, "lobbies", lobbyId);
       await updateDoc(lobbyRef, { buzzer: playerName });
@@ -54,17 +48,17 @@ function GameScreen({ lobbyId, playerName }) {
       console.error("🚨 Error updating buzzer:", error);
     }
   };
-  
 
-  // 🔄 Clear Buzzer (Host Only)
-  const clearBuzzer = async () => {
-    if (lobbyData?.host !== playerName) return;
+  // 🔄 Reset Buzzer (Host Only)
+  const resetBuzzer = async () => {
+    if (lobbyData?.host !== playerName) return; // Only the host can reset
 
     try {
       const lobbyRef = doc(db, "lobbies", lobbyId);
       await updateDoc(lobbyRef, { buzzer: null });
+      console.log("✅ Buzzer has been reset!");
     } catch (error) {
-      console.error("🚨 Error clearing buzzer:", error);
+      console.error("🚨 Error resetting buzzer:", error);
     }
   };
 
@@ -91,7 +85,7 @@ function GameScreen({ lobbyId, playerName }) {
       const lobbyRef = doc(db, "lobbies", lobbyId);
       await updateDoc(lobbyRef, { gameEnded: true });
 
-      navigate("/");
+      setTimeout(() => navigate("/"), 1000); // Smooth exit
     } catch (error) {
       console.error("🚨 Error ending game:", error);
     }
@@ -111,24 +105,35 @@ function GameScreen({ lobbyId, playerName }) {
         <h2>⏳ Waiting for someone to buzz in...</h2>
       )}
 
-    {/* 📊 Player XP Board */}
-<div className="xp-container">
-  <h3>📊 Player XP</h3>
-  {lobbyData?.players && Object.keys(lobbyData.players).length > 0 ? (
-    <ul className="xp-list">
-      {Object.entries(lobbyData.players).map(([player, xp]) =>
-        playerName === player || lobbyData?.host === playerName ? (
-          <li key={player} className="xp-item">
-            <span>{player}: <strong>{xp ?? 0} XP</strong></span>
-          </li>
-        ) : null
+      {/* 🔄 Reset Buzzer (Host Only) */}
+      {lobbyData?.host === playerName && lobbyData?.buzzer && (
+        <button className="clear-buzzer" onClick={resetBuzzer}>
+          🔄 Reset Buzzer
+        </button>
       )}
-    </ul>
-  ) : (
-    <p>No players joined yet.</p>
-  )}
-</div>
 
+      {/* 📊 Player XP Board */}
+      <div className="xp-container">
+        <h3>📊 Player XP</h3>
+        {lobbyData?.players && Object.keys(lobbyData.players).length > 0 ? (
+          <ul className="xp-list">
+            {Object.entries(lobbyData.players).map(([player, xp]) => (
+              <li key={player} className="xp-item">
+                <span>{player}: <strong>{xp ?? 0} XP</strong></span>
+                {/* 🏆 Only Host Can Adjust XP */}
+                {lobbyData?.host === playerName && (
+                  <div className="points-controls">
+                    <button className="points-button" onClick={() => updatePoints(player, -1)}>➖</button>
+                    <button className="points-button" onClick={() => updatePoints(player, 1)}>➕</button>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No players joined yet.</p>
+        )}
+      </div>
 
       {/* 🔘 Player Buzz Button */}
       <button className="remote-button" onClick={buzz} disabled={!!lobbyData?.buzzer}>
@@ -137,18 +142,17 @@ function GameScreen({ lobbyId, playerName }) {
 
       {/* 🔄 Clear Buzzer (Only Host) */}
       {lobbyData?.host === playerName && (
-        <button className="clear-buzzer" onClick={clearBuzzer}>
-          🔄 Clear Buzzer
+        <button className="clear-buzzer" onClick={resetBuzzer}>
+          🔄 Reset Buzzer
         </button>
       )}
 
       {/* 🛑 End Game (Only Host) */}
-{lobbyData?.host === playerName && window.location.pathname.includes("/host") && (
-  <button className="end-game" onClick={endGame} style={{ background: "red", color: "white" }}>
-    🛑 End Game
-  </button>
-)}
-
+      {lobbyData?.host === playerName && (
+        <button className="end-game" onClick={endGame} style={{ background: "red", color: "white" }}>
+          🛑 End Game
+        </button>
+      )}
     </div>
   );
 }

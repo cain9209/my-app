@@ -27,7 +27,20 @@ function HostView({ lobbyId }) {
     return () => unsubscribe();
   }, [lobbyId, navigate]);
 
-  // 🏆 Update XP for a player
+  // 🔔 Reset Buzzer (Host Only)
+  const resetBuzzer = async () => {
+    if (!lobbyId) return;
+
+    try {
+      const lobbyRef = doc(db, "lobbies", lobbyId);
+      await updateDoc(lobbyRef, { buzzer: null });
+      console.log("✅ Buzzer has been reset!");
+    } catch (error) {
+      console.error("🚨 Error resetting buzzer:", error);
+    }
+  };
+
+  // 🔼 XP Adjustment (Host Only)
   const updatePoints = async (player, change) => {
     if (!lobbyId || !lobbyData) return;
 
@@ -85,6 +98,18 @@ function HostView({ lobbyId }) {
 
       <h3>HOST: {lobbyData?.host || "UNKNOWN"} (HOSTING)</h3>
 
+      {/* 🛎️ Show Who Buzzed In */}
+      {lobbyData?.buzzer ? (
+        <div className="buzzed-message">
+          <h2>🚀 {lobbyData.buzzer} buzzed in first!</h2>
+          <button className="clear-buzzer" onClick={resetBuzzer}>
+            🔄 Reset Buzzer
+          </button>
+        </div>
+      ) : (
+        <h2>⏳ No one has buzzed in yet.</h2>
+      )}
+
       <h3>PLAYERS IN LOBBY:</h3>
       {lobbyData?.players && Object.keys(lobbyData.players).length > 0 ? (
         <ul className="host-player-list">
@@ -92,7 +117,7 @@ function HostView({ lobbyId }) {
             <li key={player} className="player-item">
               <span className="player-name">{player}: <strong>{xp ?? 0} XP</strong></span>
               
-              {/* 🔼 XP Buttons for Host */}
+              {/* 🔼 XP Adjustment Buttons */}
               <div className="points-controls">
                 <button className="points-button" onClick={() => updatePoints(player, -1)}>➖</button>
                 <button className="points-button" onClick={() => updatePoints(player, 1)}>➕</button>
