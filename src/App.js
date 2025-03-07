@@ -146,7 +146,7 @@ useEffect(() => {
           {/* ✅ Fixed lobby selection UI */}
           <Route path="/" element={
             <div className="lobby-selection">
-              <h1>🎮 Welcome to the Game!</h1>
+              <h1>   Welcome to the Game!</h1>
 
               {/* 🔹 Host a Lobby */}
               <div className="form-container">
